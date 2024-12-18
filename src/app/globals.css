@@ -88,7 +88,7 @@ body {
 }
 
 .tiptap {
-/* Image */
+  /* Image */
   img {
     display: block;
     height: auto;
@@ -99,7 +99,7 @@ body {
       outline: 3px solid var(--purple);
     }
   }
-   /* Table-specific styling */
+  /* Table-specific styling */
   table {
     border-collapse: collapse;
     margin: 0;
@@ -129,8 +129,11 @@ body {
 
     .selectedCell:after {
       background: rgba(120, 117, 120, 0.4);
-      content: "";
-      left: 0; right: 0; top: 0; bottom: 0;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
       pointer-events: none;
       position: absolute;
       z-index: 2;
@@ -158,39 +161,39 @@ body {
   }
 
   /* Heading styles */
-  h1, 
-  h2, 
-  h3, 
-  h4, 
-  h5, 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
   h6 {
     line-height: 1.1;
-    margin-top: 2.5rem;
+    margin-top: 0.5rem;
     text-wrap: pretty;
   }
 
-  h1, 
+  h1,
   h2 {
-    margin-top: 3.5rem;
+    /* margin-top: 3.5rem; */
     margin-bottom: 1.5rem;
   }
 
-  h1 { 
-    font-size: 1.4rem; 
+  h1 {
+    font-size: 1.4rem;
   }
 
-  h2 { 
-    font-size: 1.2rem; 
+  h2 {
+    font-size: 1.2rem;
   }
 
-  h3 { 
-    font-size: 1.1rem; 
+  h3 {
+    font-size: 1.1rem;
   }
 
-  h4, 
-  h5, 
-  h6 { 
-    font-size: 1rem; 
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem;
   }
 
   /* List styles 列表 */
@@ -219,7 +222,7 @@ body {
   }
 
   /* Task list specific styles 任务列表 */
-  ul[data-type="taskList"] {
+  ul[data-type='taskList'] {
     list-style: none;
     margin-left: 0;
     padding: 0;
@@ -239,11 +242,11 @@ body {
       }
     }
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       cursor: pointer;
     }
 
-    ul[data-type="taskList"] {
+    ul[data-type='taskList'] {
       margin: 0;
     }
   }
