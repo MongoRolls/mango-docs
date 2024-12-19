@@ -1,5 +1,9 @@
 'use client';
 
+import TextAlign from '@tiptap/extension-text-align';
+import Link from '@tiptap/extension-link';
+import { Color } from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import ImageResize from 'tiptap-extension-resize-image';
 import Table from '@tiptap/extension-table';
@@ -68,7 +72,19 @@ export const Editor = () => {
       Underline,
       FontFamily,
       TextStyle,
-      Heading
+      Heading,
+      Highlight.configure({
+        multicolor: true
+      }),
+      Color,
+      Link.configure({
+        openOnClick: true, // 不跳转新页面
+        autolink: true, // 自动识别链接
+        defaultProtocol: 'https' // 更安全的协议
+      }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph']
+      })
     ],
     content: `<table>
           <tbody>

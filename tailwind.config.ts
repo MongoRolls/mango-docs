@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-
+import tailwindcssAnimate from 'tailwindcss-animate';
 export default {
     darkMode: ["class"],
     content: [
@@ -89,6 +89,7 @@ export default {
   			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
-  },
-  plugins: [require("tailwindcss-animate")],
+	},
+  mode: 'jit',
+  plugins: [tailwindcssAnimate],
 } satisfies Config;
