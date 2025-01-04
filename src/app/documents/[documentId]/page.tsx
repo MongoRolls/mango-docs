@@ -1,22 +1,26 @@
+/* eslint-disable unused-imports/no-unused-vars */
 import { Editor } from '@/app/documents/[documentId]/editor'
 import { Toolbar } from '@/app/documents/[documentId]/toolbar'
 
-import Image from 'next/image'
 import { Navbar } from './navbar'
 
 interface DocumentIdPageProps {
   params: Promise<{ documentId: string }>
 }
 async function DocumentIdPage({ params }: DocumentIdPageProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { documentId } = await params
 
   return (
     <div className="min-h-screen bg-[#FAFBFD]">
-      <Navbar />
-      <Toolbar />
-      <Editor />
-      <Image src="/logo.svg" alt="logo" width={10000} height={10000} />
+      <div
+        className="flex flex-col px-4 py-2 gap-y-2 fixed top-0 left-0 right-0 z-10 bg-[#fafbfc] print:hidden"
+      >
+        <Navbar />
+        <Toolbar />
+      </div>
+      <div className="pt-[114px] print:pt-0">
+        <Editor />
+      </div>
     </div>
   )
 }

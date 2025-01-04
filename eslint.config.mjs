@@ -14,10 +14,6 @@ export default antfu(
       'no-restricted-imports': [
         'warn',
         {
-          name: 'next/link',
-          message: 'Please import from `@/lib/i18n` instead.',
-        },
-        {
           name: 'next/navigation',
           importNames: [
             'redirect',
