@@ -1,11 +1,11 @@
-import { Extension } from '@tiptap/react';
+import { Extension } from '@tiptap/react'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     lintHeight: {
-      setLintHeight: (lineHeight: string) => ReturnType;
-    };
-    unsetLintHeight: () => ReturnType;
+      setLintHeight: (lineHeight: string) => ReturnType
+    }
+    unsetLintHeight: () => ReturnType
   }
 }
 
@@ -15,8 +15,8 @@ export const LintHeightExtension = Extension.create({
   addOptions() {
     return {
       types: ['paragraph', 'heading'],
-      defaultLineHeight: 'normal'
-    };
+      defaultLineHeight: 'normal',
+    }
   },
 
   addGlobalAttributes() {
@@ -27,62 +27,62 @@ export const LintHeightExtension = Extension.create({
           lineHeight: {
             default: this.options.defaultLineHeight,
             parseHTML: element => element.style.lineHeight || this.options.defaultLineHeight,
-            renderHTML: attributes => {
+            renderHTML: (attributes) => {
               if (!attributes.lineHeight) {
-                return {};
+                return {}
               }
-              return { style: `line-height: ${attributes.lineHeight}` };
-            }
-          }
-        }
-      }
-    ];
+              return { style: `line-height: ${attributes.lineHeight}` }
+            },
+          },
+        },
+      },
+    ]
   },
 
   addCommands() {
     return {
       setLintHeight: (lineHeight: string) => ({ tr, state, dispatch }) => {
-        const { selection } = state;
-        const { from, to } = selection;
+        const { selection } = state
+        const { from, to } = selection
 
         state.doc.nodesBetween(from, to, (node, pos) => {
           if (this.options.types.includes(node.type.name)) {
             tr = tr.setNodeMarkup(pos, undefined, {
               ...node.attrs,
-              lineHeight
-            });
+              lineHeight,
+            })
           }
-        });
+        })
 
         if (dispatch) {
-          dispatch(tr);
+          dispatch(tr)
         }
 
-        return true;
-        },
-        
-        // WTF
+        return true
+      },
+
+      // WTF
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      unsetLintHeight: () => ({ tr, state, dispatch }: { tr: any, state: any, dispatch: any }) => {
+        const { selection } = state
+        const { from, to } = selection
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        unsetLintHeight: () => ({ tr, state, dispatch }: { tr: any; state: any; dispatch: any }) => {
-          const { selection } = state;
-          const { from, to } = selection;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          state.doc.nodesBetween(from, to, (node: any, pos: any) => {
-            if (this.options.types.includes(node.type.name)) {
-              tr = tr.setNodeMarkup(pos, undefined, {
-                ...node.attrs,
-                lineHeight: this.options.defaultLineHeight
-              });
-            }
-          });
-
-          if (dispatch) {
-            dispatch(tr);
+        state.doc.nodesBetween(from, to, (node: any, pos: any) => {
+          if (this.options.types.includes(node.type.name)) {
+            tr = tr.setNodeMarkup(pos, undefined, {
+              ...node.attrs,
+              lineHeight: this.options.defaultLineHeight,
+            })
           }
+        })
 
-          return true;
+        if (dispatch) {
+          dispatch(tr)
         }
-    };
-  }
 
-});
+        return true
+      },
+    }
+  },
+
+})

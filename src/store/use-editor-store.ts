@@ -1,12 +1,12 @@
-import { create } from "zustand";
-import { type Editor } from "@tiptap/react";
+import type { Editor } from '@tiptap/react'
+import { create } from 'zustand'
 
-interface EditorState{
-    editor: Editor | null;
-    setEditor: (editor: Editor | null) => void;
+interface EditorState {
+  editor: Editor | null
+  setEditor: (editor: Editor | null) => void
 }
 
-export const useEditorStore = create<EditorState>((set) => ({
-    editor: null,
-    setEditor: (editor) => set({ editor }),
-}));
+export const useEditorStore = create<EditorState>(set => ({
+  editor: null,
+  setEditor: editor => set({ editor }),
+}))

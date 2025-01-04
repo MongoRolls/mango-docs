@@ -1,83 +1,84 @@
-'use client';
-import { useState } from 'react';
-import { type Level } from '@tiptap/extension-heading';
-import { type ColorResult } from 'react-color';
-import { SketchPicker } from 'react-color';
-import {
+'use client'
+import type { Level } from '@tiptap/extension-heading'
+import type {
   LucideIcon,
-  Undo2Icon,
-  Redo2Icon,
-  PrinterIcon,
-  SpellCheckIcon,
-  BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-  MessageSquareIcon,
-  ListTodoIcon,
-  RemoveFormattingIcon,
-  ChevronDownIcon,
-  HighlighterIcon,
-  Link2Icon,
-  ImageIcon,
-  UploadIcon,
-  SearchIcon,
-  AlignLeftIcon,
-  AlignCenterIcon,
-  AlignRightIcon,
-  AlignJustifyIcon,
-  ListIcon,
-  ListOrderedIcon,
-  MinusIcon,
-  PlusIcon,
-  ListCollapseIcon
-} from 'lucide-react';
-
-import { cn } from '@/lib/utils';
-import { Separator } from '@/components/ui/separator';
-import { useEditorStore } from '@/store/use-editor-store';
-import { useRef } from 'react';
+} from 'lucide-react'
+import type { ColorResult } from 'react-color'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Separator } from '@/components/ui/separator'
+
+import { cn } from '@/lib/utils'
+import { useEditorStore } from '@/store/use-editor-store'
+import {
+  AlignCenterIcon,
+  AlignJustifyIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
+  BoldIcon,
+  ChevronDownIcon,
+  HighlighterIcon,
+  ImageIcon,
+  ItalicIcon,
+  Link2Icon,
+  ListCollapseIcon,
+  ListIcon,
+  ListOrderedIcon,
+  ListTodoIcon,
+  MessageSquareIcon,
+  MinusIcon,
+  PlusIcon,
+  PrinterIcon,
+  Redo2Icon,
+  RemoveFormattingIcon,
+  SearchIcon,
+  SpellCheckIcon,
+  UnderlineIcon,
+  Undo2Icon,
+  UploadIcon,
+} from 'lucide-react'
+import { useRef, useState } from 'react'
+import { SketchPicker } from 'react-color'
 
 interface ToolbarButtonProps {
-  onClick?: () => void;
-  isActive?: boolean;
-  icon: LucideIcon;
+  onClick?: () => void
+  isActive?: boolean
+  icon: LucideIcon
 }
 
-const LintHeightButton = () => {
-  const { editor } = useEditorStore();
+function LintHeightButton() {
+  const { editor } = useEditorStore()
 
   const lintHeights = [
     {
       label: 'Default',
-      value: 'normal'
+      value: 'normal',
     },
     {
       label: 'Single',
-      value: '1'
+      value: '1',
     },
     {
       label: '1.15',
-      value: '1.15'
+      value: '1.15',
     },
     {
       label: '1.5',
-      value: '1.5'
+      value: '1.5',
     },
     {
       label: 'Double',
-      value: '2'
-    }
-  ];
+      value: '2',
+    },
+  ]
 
   return (
     <DropdownMenu>
@@ -93,7 +94,7 @@ const LintHeightButton = () => {
             onClick={() => editor?.chain().focus().setLintHeight(value).run()}
             className={cn(
               'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
-              editor?.getAttributes('paragraph').lineHeight === value && 'bg-neutral-200/80'
+              editor?.getAttributes('paragraph').lineHeight === value && 'bg-neutral-200/80',
             )}
           >
             <span className="text-sm">{label}</span>
@@ -101,67 +102,67 @@ const LintHeightButton = () => {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const FontSizeButton = () => {
-  const { editor } = useEditorStore();
+function FontSizeButton() {
+  const { editor } = useEditorStore()
 
   // 光标部分字体大小
   const currentFontSize = editor?.getAttributes('textStyle').fontSize
     ? editor?.getAttributes('textStyle').fontSize.replace('px', '')
-    : '16';
+    : '16'
 
   // 实际字体大小
-  const [fontSize, setFontSize] = useState(currentFontSize);
+  const [fontSize, setFontSize] = useState(currentFontSize)
 
   // 输入框大小
-  const [inputValue, setInputValue] = useState(fontSize);
-  const [isEditing, setIsEditing] = useState(false);
+  const [inputValue, setInputValue] = useState(fontSize)
+  const [isEditing, setIsEditing] = useState(false)
 
-  console.log('test currentFontSize: ', currentFontSize);
+  console.log('test currentFontSize: ', currentFontSize)
 
   const updateFontSize = (newSize: string) => {
-    const size = parseInt(newSize);
+    const size = Number.parseInt(newSize)
     if (!isNaN(size) && size > 0) {
-      editor?.chain().focus().setFontSize(`${size}px`).run();
-      setIsEditing(false);
-      setFontSize(newSize);
-      setInputValue(newSize);
+      editor?.chain().focus().setFontSize(`${size}px`).run()
+      setIsEditing(false)
+      setFontSize(newSize)
+      setInputValue(newSize)
     }
-  };
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
+    setInputValue(e.target.value)
+  }
 
   const handleInputBlur = () => {
-    console.log('blur', currentFontSize);
-    updateFontSize(currentFontSize);
-    setIsEditing(false);
-  };
+    console.log('blur', currentFontSize)
+    updateFontSize(currentFontSize)
+    setIsEditing(false)
+  }
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
-      updateFontSize(inputValue);
-      editor?.commands.focus();
+      e.preventDefault()
+      updateFontSize(inputValue)
+      editor?.commands.focus()
     }
-  };
+  }
 
   const increment = () => {
-    const size = parseInt(currentFontSize) + 1;
+    const size = Number.parseInt(currentFontSize) + 1
     if (!isNaN(size) && size > 0) {
-      updateFontSize(`${size}`);
+      updateFontSize(`${size}`)
     }
-  };
+  }
 
   const decrement = () => {
-    const size = parseInt(currentFontSize) - 1;
+    const size = Number.parseInt(currentFontSize) - 1
     if (!isNaN(size) && size > 0) {
-      updateFontSize(`${size}`);
+      updateFontSize(`${size}`)
     }
-  };
+  }
 
   return (
     <div className="flex items-center gap-x-2">
@@ -184,8 +185,8 @@ const FontSizeButton = () => {
       ) : (
         <button
           onClick={() => {
-            setIsEditing(true);
-            setFontSize(currentFontSize);
+            setIsEditing(true)
+            setFontSize(currentFontSize)
           }}
           className="h-7 w-10 text-sm-center shrink-0 border border-neutral-400 rounded-sm hover:bg-neutral-200/80"
         >
@@ -199,11 +200,11 @@ const FontSizeButton = () => {
         <PlusIcon className="size-4" />
       </button>
     </div>
-  );
-};
+  )
+}
 
-const ListButton = () => {
-  const { editor } = useEditorStore();
+function ListButton() {
+  const { editor } = useEditorStore()
 
   const lists = [
     {
@@ -211,18 +212,18 @@ const ListButton = () => {
       icon: ListIcon,
       isActive: () => editor?.isActive('bulletList'),
       onClick: () => {
-        editor?.chain().focus().toggleBulletList().run();
-      }
+        editor?.chain().focus().toggleBulletList().run()
+      },
     },
     {
       label: 'Ordered List',
       icon: ListOrderedIcon,
       isActive: () => editor?.isActive('orderedList'),
       onClick: () => {
-        editor?.chain().focus().toggleOrderedList().run();
-      }
-    }
-  ];
+        editor?.chain().focus().toggleOrderedList().run()
+      },
+    },
+  ]
 
   return (
     <DropdownMenu>
@@ -238,7 +239,7 @@ const ListButton = () => {
             onClick={onClick}
             className={cn(
               'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
-              isActive() && 'bg-neutral-200/80'
+              isActive() && 'bg-neutral-200/80',
             )}
           >
             <Icon className="size-4 mr-2" />
@@ -247,34 +248,34 @@ const ListButton = () => {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const AlignButton = () => {
-  const { editor } = useEditorStore();
+function AlignButton() {
+  const { editor } = useEditorStore()
 
   const alignments = [
     {
       label: 'Align left',
       value: 'left',
-      icon: AlignLeftIcon
+      icon: AlignLeftIcon,
     },
     {
       label: 'Align center',
       value: 'center',
-      icon: AlignCenterIcon
+      icon: AlignCenterIcon,
     },
     {
       label: 'Align right',
       value: 'right',
-      icon: AlignRightIcon
+      icon: AlignRightIcon,
     },
     {
       label: 'Align justify',
       value: 'justify',
-      icon: AlignJustifyIcon
-    }
-  ];
+      icon: AlignJustifyIcon,
+    },
+  ]
 
   return (
     <DropdownMenu>
@@ -290,7 +291,7 @@ const AlignButton = () => {
             onClick={() => editor?.chain().focus().setTextAlign(value).run()}
             className={cn(
               'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
-              editor?.isActive({ TextAlign: value }) && 'bg-neutral-200/80'
+              editor?.isActive({ TextAlign: value }) && 'bg-neutral-200/80',
             )}
           >
             <Icon className="size-4 mr-2" />
@@ -299,49 +300,49 @@ const AlignButton = () => {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const ImageButton = () => {
-  const { editor } = useEditorStore();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
+function ImageButton() {
+  const { editor } = useEditorStore()
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
 
   const onChange = (url: string) => {
-    editor?.chain().focus().setImage({ src: url }).run();
-  };
+    editor?.chain().focus().setImage({ src: url }).run()
+  }
 
   const onUpload = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'image/*'
     input.onchange = (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
+      const file = (e.target as HTMLInputElement).files?.[0]
 
       if (file) {
-        const image = URL.createObjectURL(file);
-        setImageUrl(image);
-        onChange(image);
+        const image = URL.createObjectURL(file)
+        setImageUrl(image)
+        onChange(image)
       }
-    };
+    }
 
-    input.click();
-  };
+    input.click()
+  }
 
   const handleImageUrlSubmit = () => {
     if (imageUrl) {
-      onChange(imageUrl);
-      setImageUrl('');
-      setIsDialogOpen(false);
+      onChange(imageUrl)
+      setImageUrl('')
+      setIsDialogOpen(false)
     }
-  };
+  }
 
   return (
     <>
       <DropdownMenu
         onOpenChange={(open) => {
           if (open) {
-            setImageUrl(editor?.getAttributes('link').href || '');
+            setImageUrl(editor?.getAttributes('link').href || '')
           }
         }}
       >
@@ -370,10 +371,10 @@ const ImageButton = () => {
           <Input
             value={imageUrl}
             placeholder="paste image url"
-            onChange={(e) => setImageUrl(e.target.value)}
+            onChange={e => setImageUrl(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleImageUrlSubmit();
+                handleImageUrlSubmit()
               }
             }}
           />
@@ -383,23 +384,23 @@ const ImageButton = () => {
         </DialogContent>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-const LinkButton = () => {
-  const { editor } = useEditorStore();
+function LinkButton() {
+  const { editor } = useEditorStore()
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('')
   const onChange = (url: string) => {
-    editor?.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-    setValue('');
-  };
+    editor?.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+    setValue('')
+  }
 
   return (
     <DropdownMenu
       onOpenChange={(open) => {
         if (open) {
-          setValue(editor?.getAttributes('link').href || '');
+          setValue(editor?.getAttributes('link').href || '')
         }
       }}
     >
@@ -409,21 +410,21 @@ const LinkButton = () => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
-        <Input value={value} placeholder="paste link" onChange={(e) => setValue(e.target.value)} />
+        <Input value={value} placeholder="paste link" onChange={e => setValue(e.target.value)} />
         <Button onClick={() => onChange(value)}>Apply</Button>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const HighlightColorButton = () => {
-  const { editor } = useEditorStore();
+function HighlightColorButton() {
+  const { editor } = useEditorStore()
 
-  const value = editor?.getAttributes('highlight').color || '#FFFFFF';
+  const value = editor?.getAttributes('highlight').color || '#FFFFFF'
 
   const onChange = (color: ColorResult) => {
-    editor?.chain().focus().setHighlight({ color: color.hex }).run();
-  };
+    editor?.chain().focus().setHighlight({ color: color.hex }).run()
+  }
 
   return (
     <DropdownMenu>
@@ -436,16 +437,16 @@ const HighlightColorButton = () => {
         <SketchPicker color={value} onChange={onChange} />
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const TextColorButton = () => {
-  const { editor } = useEditorStore();
+function TextColorButton() {
+  const { editor } = useEditorStore()
 
-  const value = editor?.getAttributes('textStyle').color || '#000000';
+  const value = editor?.getAttributes('textStyle').color || '#000000'
   const onChange = (color: ColorResult) => {
-    editor?.chain().focus().setColor(color.hex).run();
-  };
+    editor?.chain().focus().setColor(color.hex).run()
+  }
 
   return (
     <DropdownMenu>
@@ -459,11 +460,11 @@ const TextColorButton = () => {
         <SketchPicker color={value} onChange={onChange} />
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const HeadingLevelButton = () => {
-  const { editor } = useEditorStore();
+function HeadingLevelButton() {
+  const { editor } = useEditorStore()
 
   const headings = [
     { label: '正文', value: 0, fontSize: '16px' },
@@ -471,24 +472,24 @@ const HeadingLevelButton = () => {
     { label: '标题二', value: 2, fontSize: '24px' },
     { label: '标题三', value: 3, fontSize: '20px' },
     { label: '标题四', value: 4, fontSize: '18px' },
-    { label: '标题五', value: 5, fontSize: '16px' }
-  ];
+    { label: '标题五', value: 5, fontSize: '16px' },
+  ]
 
   const getCurrentHeadingLevel = () => {
     for (let level = 1; level <= 5; level++) {
-      if (editor?.isActive(`heading`, { level: level })) {
-        return `Heading ${level}`;
+      if (editor?.isActive(`heading`, { level })) {
+        return `Heading ${level}`
       }
     }
-    return 'Normal text';
-  };
+    return 'Normal text'
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
-            'h-7 min-w-7 shrink-0  flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
+            'h-7 min-w-7 shrink-0  flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm',
           )}
         >
           <span className="truncate">{getCurrentHeadingLevel()}</span>
@@ -501,21 +502,22 @@ const HeadingLevelButton = () => {
             key={value}
             className={cn(
               'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
-              (value === 0 && !editor?.isActive('heading')) ||
-                (value !== 0 && editor?.isActive('heading', { level: value }))
+              (value === 0 && !editor?.isActive('heading'))
+              || (value !== 0 && editor?.isActive('heading', { level: value }))
                 ? 'bg-neutral-200/80'
-                : ''
+                : '',
             )}
             style={{ fontSize }}
             onClick={() => {
               if (value === 0) {
-                editor?.chain().focus().setParagraph().run();
-              } else {
+                editor?.chain().focus().setParagraph().run()
+              }
+              else {
                 editor
                   ?.chain()
                   .focus()
                   .setHeading({ level: value as Level })
-                  .run();
+                  .run()
               }
             }}
           >
@@ -524,23 +526,23 @@ const HeadingLevelButton = () => {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const FontFamilyButton = () => {
-  const { editor } = useEditorStore();
+function FontFamilyButton() {
+  const { editor } = useEditorStore()
   const fonts = [
     { label: 'Arial', value: 'Arial' },
     { label: 'Times New Roman', value: 'Times New Roman' },
     { label: 'Courier New', value: 'Courier New' },
-    { label: 'Poppins', value: 'Poppins' }
-  ];
+    { label: 'Poppins', value: 'Poppins' },
+  ]
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
-            'h-7 w-[120px] shrink-0  flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
+            'h-7 w-[120px] shrink-0  flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm',
           )}
         >
           <span className="truncate">{editor?.getAttributes('textStyle').fontFamily || 'Arial'}</span>
@@ -553,11 +555,11 @@ const FontFamilyButton = () => {
             key={value}
             className={cn(
               'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
-              editor?.getAttributes('textStyle').fontFamily === value && 'bg-neutral-200/80'
+              editor?.getAttributes('textStyle').fontFamily === value && 'bg-neutral-200/80',
             )}
             style={{ fontFamily: value }}
             onClick={() => {
-              editor?.chain().focus().setFontFamily(value).run();
+              editor?.chain().focus().setFontFamily(value).run()
             }}
           >
             <span className="text-sm">{label}</span>
@@ -565,64 +567,64 @@ const FontFamilyButton = () => {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-const ToolbarButton = ({ onClick, isActive, icon: Icon }: ToolbarButtonProps) => {
+function ToolbarButton({ onClick, isActive, icon: Icon }: ToolbarButtonProps) {
   return (
     <button
       onClick={onClick}
       className={cn(
         'text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
-        isActive && 'bg-neutral-200/80'
+        isActive && 'bg-neutral-200/80',
       )}
     >
       <Icon className="size-4" />
     </button>
-  );
-};
+  )
+}
 
-export const Toolbar = () => {
-  const countRef = useRef<number>(0);
-  countRef.current++;
-  const { editor } = useEditorStore();
+export function Toolbar() {
+  const countRef = useRef<number>(0)
+  countRef.current++
+  const { editor } = useEditorStore()
   // console.log('toolbar: ', { editor }, countRef.current);
 
-  const sections: { label: string; icon: LucideIcon; onClick: () => void; isActive?: boolean }[][] = [
+  const sections: { label: string, icon: LucideIcon, onClick: () => void, isActive?: boolean }[][] = [
     [
       {
         label: 'Undo',
         icon: Undo2Icon,
         onClick: () => {
-          editor?.chain().focus().undo().run();
+          editor?.chain().focus().undo().run()
         },
-        isActive: false
+        isActive: false,
       },
       {
         label: 'Redo',
         icon: Redo2Icon,
         onClick: () => {
-          editor?.chain().focus().redo().run();
+          editor?.chain().focus().redo().run()
         },
-        isActive: false
+        isActive: false,
       },
       {
         label: 'Print',
         icon: PrinterIcon,
         onClick: () => {
-          window.print();
+          window.print()
         },
-        isActive: false
+        isActive: false,
       },
       {
         label: 'Spell Check',
         icon: SpellCheckIcon,
         onClick: () => {
-          const current = editor?.view.dom.getAttribute('spellcheck');
-          editor?.view.dom.setAttribute('spellcheck', current === 'true' ? 'false' : 'true');
+          const current = editor?.view.dom.getAttribute('spellcheck')
+          editor?.view.dom.setAttribute('spellcheck', current === 'true' ? 'false' : 'true')
         },
-        isActive: false
-      }
+        isActive: false,
+      },
     ],
     [
       {
@@ -630,25 +632,25 @@ export const Toolbar = () => {
         icon: BoldIcon,
         isActive: editor?.isActive('bold'),
         onClick: () => {
-          editor?.chain().focus().toggleBold().run();
-        }
+          editor?.chain().focus().toggleBold().run()
+        },
       },
       {
         label: 'Italic',
         icon: ItalicIcon,
         isActive: editor?.isActive('italic'),
         onClick: () => {
-          editor?.chain().focus().toggleItalic().run();
-        }
+          editor?.chain().focus().toggleItalic().run()
+        },
       },
       {
         label: 'Underline',
         icon: UnderlineIcon,
         isActive: editor?.isActive('underline'),
         onClick: () => {
-          editor?.chain().focus().toggleUnderline().run();
-        }
-      }
+          editor?.chain().focus().toggleUnderline().run()
+        },
+      },
     ],
     [
       {
@@ -657,30 +659,30 @@ export const Toolbar = () => {
         isActive: false,
         onClick: () => {
           // editor?.chain().focus().toggleComment().run();
-        }
+        },
       },
       {
         label: 'List Todo',
         icon: ListTodoIcon,
         isActive: editor?.isActive('taskList'),
         onClick: () => {
-          editor?.chain().focus().toggleTaskList().run();
-        }
+          editor?.chain().focus().toggleTaskList().run()
+        },
       },
       {
         label: 'Remove Format',
         icon: RemoveFormattingIcon,
         isActive: false,
         onClick: () => {
-          editor?.chain().focus().unsetAllMarks().run();
-        }
-      }
-    ]
-  ];
+          editor?.chain().focus().unsetAllMarks().run()
+        },
+      },
+    ],
+  ]
 
   return (
     <div className="sticky top-0 z-50 bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto">
-      {sections[0]?.map((item) => (
+      {sections[0]?.map(item => (
         <ToolbarButton key={item.label} {...item} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
@@ -690,7 +692,7 @@ export const Toolbar = () => {
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       <FontSizeButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {sections[1]?.map((item) => (
+      {sections[1]?.map(item => (
         <ToolbarButton key={item.label} {...item} />
       ))}
       <TextColorButton />
@@ -701,9 +703,9 @@ export const Toolbar = () => {
       <LintHeightButton />
       <AlignButton />
       <ListButton />
-      {sections[2]?.map((item) => (
+      {sections[2]?.map(item => (
         <ToolbarButton key={item.label} {...item} />
       ))}
     </div>
-  );
-};
+  )
+}
