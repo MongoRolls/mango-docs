@@ -86,7 +86,7 @@ export function Navbar() {
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2">
         <Link href="/">
-          <Image src="/logo.svg" alt="logo" width={100} height={100} />
+          <Image src="/logo.svg" alt="logo" width={36} height={36} />
         </Link>
 
         <div className="flex flex-col">

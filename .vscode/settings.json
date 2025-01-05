@@ -1,12 +1,11 @@
 {
   "i18n-ally.localesPaths": ["messages", "lib/i18n"],
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": "explicit"
+  // },
   "prettier.enable": false,
   "editor.defaultFormatter": null,
-  "eslint.experimental.useFlatConfig": true,
   "eslint.format.enable": true,
   "eslint.validate": [
     "javascript",
@@ -20,5 +19,5 @@
   },
   "eslint.alwaysShowRuleFailuresAsWarnings": true,
   "eslint.run": "onType", // 选择在输入时运行 ESLint
-  "editor.formatOnSave": false // 禁用默认格式化
+  "cspell.words": ["Nuqs"]
 }
