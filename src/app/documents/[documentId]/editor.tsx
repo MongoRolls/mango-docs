@@ -92,7 +92,6 @@ export function Editor() {
       FontSizeExtension,
       LintHeightExtension.configure(),
     ],
-    content: `111`,
   })
 
   return (
