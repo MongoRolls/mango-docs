@@ -1,3 +1,4 @@
+import { UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import SearchInput from './search-input'
@@ -13,6 +14,7 @@ export default function Navbar() {
       </div>
 
       <SearchInput />
+      <UserButton />
       <div />
     </div>
   )
