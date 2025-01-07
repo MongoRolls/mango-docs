@@ -8,11 +8,28 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { templates } from '@/constants/templates'
-
 import { cn } from '@/lib/utils'
+import { useMutation } from 'convex/react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { api } from '../../../convex/_generated/api'
 
 export default function TemplatesGallery() {
-  const isCreate = false
+  const router = useRouter()
+  const create = useMutation(api.document.create)
+  const [isCreate, setIsCreate] = useState(false)
+
+  const onTemplateClick = (title: string, initialContent: string) => {
+    setIsCreate(true)
+    create({
+      title,
+      initialContent,
+    }).then((documentId) => {
+      router.push(`/document/${documentId}`)
+    }).finally(() => {
+      setIsCreate(false)
+    })
+  }
 
   return (
     <div className="bg-[#f1f3f4]">
@@ -35,8 +52,9 @@ export default function TemplatesGallery() {
                     <button
                       type="button"
                       disabled={isCreate}
+                      // todo: 需要优化
                       onClick={() => {
-
+                        onTemplateClick(template.label, '')
                       }}
                       style={{
                         backgroundImage: `url(${template.imageUrl})`,
