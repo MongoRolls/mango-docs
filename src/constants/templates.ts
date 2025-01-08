@@ -25,11 +25,6 @@ export const templates = [
     imageUrl: '/resume.svg',
   },
   {
-    id: 'cover-letter',
-    label: 'Cover Letter',
-    imageUrl: '/cover-letter.svg',
-  },
-  {
     id: 'letter',
     label: 'Letter',
     imageUrl: '/letter.svg',

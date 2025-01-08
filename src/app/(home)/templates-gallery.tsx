@@ -25,7 +25,7 @@ export default function TemplatesGallery() {
       title,
       initialContent,
     }).then((documentId) => {
-      router.push(`/document/${documentId}`)
+      router.push(`/documents/${documentId}`)
     }).finally(() => {
       setIsCreate(false)
     })
@@ -45,7 +45,7 @@ export default function TemplatesGallery() {
                   pl-4"
                 >
                   <div className={cn(
-                    'aspect-[3/4] flex flex-col gap-y-2.5 items-center justify-center',
+                    'aspect-[3/4] flex flex-col gap-y-2.5',
                     isCreate && 'pointer-events-none opacity-50',
                   )}
                   >
@@ -54,7 +54,7 @@ export default function TemplatesGallery() {
                       disabled={isCreate}
                       // todo: 需要优化
                       onClick={() => {
-                        onTemplateClick(template.label, '')
+                        onTemplateClick(template.label, 'init')
                       }}
                       style={{
                         backgroundImage: `url(${template.imageUrl})`,
