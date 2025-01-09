@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParam } from '@/hooks/use-search-param'
 import { usePaginatedQuery } from 'convex/react'
 import { api } from '../../../convex/_generated/api'
 import { DocumentsTable } from './documents-table'
@@ -7,7 +8,12 @@ import Navbar from './navbar'
 import TemplatesGallery from './templates-gallery'
 
 export default function Home() {
-  const { results, status, loadMore } = usePaginatedQuery(api.document.get, {}, { initialNumItems: 5 })
+  const [search] = useSearchParam()
+  const {
+    results,
+    status,
+    loadMore,
+  } = usePaginatedQuery(api.document.get, { search }, { initialNumItems: 5 })
 
   return (
     <div className="min-h-screen flex flex-col">

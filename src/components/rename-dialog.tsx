@@ -74,7 +74,11 @@ export function RenameDialog({ documentId, initialTitle, children }: RenameDialo
             >
               Cancel
             </Button>
-            <Button disabled={isUpdating} type="submit" onClick={e => e.stopPropagation()}>
+            <Button
+              disabled={isUpdating}
+              type="submit"
+              onClick={e => e.stopPropagation()}
+            >
               Rename
             </Button>
           </DialogFooter>
