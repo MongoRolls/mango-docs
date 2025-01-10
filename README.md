@@ -1,15 +1,20 @@
 # Mango Docs
 
 🚧 正在建设中，一个现代化的在线文档编辑与协作平台，基于 Next.js 15 和 Convex 构建。
+预接入RAG实现搜索增强 - 知识库
 
 ## 特性
 
 - 📝 实时协作编辑
 - 🎨 富文本编辑器
-- 🌙 深色模式支持
-- 📱 响应式设计
 - 🚀 实时数据同步
 - 🔍 文档搜索
+- 🤖 智能搜索
+- 🔒 权限管理
+- 📱 响应式设计
+- 🔗 文档分享
+- 📊 统计分析
+- 🤝 团队管理
 - 📂 文件夹组织
 
 ## 技术栈
@@ -69,13 +74,12 @@ pnpm dev
 ## 环境要求
 
 - Node.js 18+
-- pnpm 8+
 - Convex CLI
 
 ## 贡献指南
 
 欢迎提交 Pull Request 和 Issue！
 
-## 许可证
+## License
 
-MIT License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

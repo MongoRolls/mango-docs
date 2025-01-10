@@ -15,7 +15,7 @@
   ],
   "eslint.useESLintClass": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true // 在保存时自动修复 ESLint 问题
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.alwaysShowRuleFailuresAsWarnings": true,
   "eslint.run": "onType", // 选择在输入时运行 ESLint

@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { ClerkProvider, SignIn, useAuth } from '@clerk/clerk-react'
+import { ClerkProvider, SignIn, useAuth } from '@clerk/nextjs'
 import { Authenticated, AuthLoading, ConvexReactClient, Unauthenticated } from 'convex/react'
 import { ConvexProviderWithClerk } from 'convex/react-clerk'
 import { FullscreenLoader } from './fullscreen-loader'
