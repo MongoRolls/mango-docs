@@ -44,7 +44,6 @@ export const FontSizeExtension = Extension.create({
       setFontSize: (fontSize: string) => ({ chain }) => {
         return chain().setMark('textStyle', { fontSize }).run()
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       unsetFontSize: () => ({ chain }: { chain: any }) => {
         return chain().setMark('textStyle', { fontSize: null }).removeEmptyTextStyle().run()
       },

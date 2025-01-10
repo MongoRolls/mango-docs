@@ -27,7 +27,7 @@ export function DocumentMenu({ documentId, title, onNewTab }: DocumentMenuProps)
       </DropdownMenuTrigger>
       <DropdownMenuContent>
 
-        <RenameDialog documentId={documentId}>
+        <RenameDialog documentId={documentId} initialTitle={title}>
           <DropdownMenuItem onClick={e => e.stopPropagation()} onSelect={e => e.preventDefault()}>
             <FilePenIcon className="size-4 mr-2" />
             <span>Rename</span>

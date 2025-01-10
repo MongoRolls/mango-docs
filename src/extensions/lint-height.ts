@@ -62,11 +62,9 @@ export const LintHeightExtension = Extension.create({
       },
 
       // WTF
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       unsetLintHeight: () => ({ tr, state, dispatch }: { tr: any, state: any, dispatch: any }) => {
         const { selection } = state
         const { from, to } = selection
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         state.doc.nodesBetween(from, to, (node: any, pos: any) => {
           if (this.options.types.includes(node.type.name)) {
             tr = tr.setNodeMarkup(pos, undefined, {

@@ -1,8 +1,12 @@
 'use client'
 
+import { ColorHighlighter } from '@/extensions/color-highligher'
 import { FontSizeExtension } from '@/extensions/font-size'
 import { LintHeightExtension } from '@/extensions/lint-height'
+import { SmilieReplacer } from '@/extensions/smilie-replacer'
 import { useEditorStore } from '@/store/use-editor-store'
+// import CodeBlock from '@tiptap/extension-code-block'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { Color } from '@tiptap/extension-color'
 import FontFamily from '@tiptap/extension-font-family'
 import Heading from '@tiptap/extension-heading'
@@ -17,19 +21,30 @@ import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import TextAlign from '@tiptap/extension-text-align'
 import TextStyle from '@tiptap/extension-text-style'
-
 import Typography from '@tiptap/extension-typography'
+
 import Underline from '@tiptap/extension-underline'
-
-
-
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
+import { all, createLowlight } from 'lowlight'
 import ImageResize from 'tiptap-extension-resize-image'
 import Rule from './rule'
 
 export function Editor() {
   const { setEditor } = useEditorStore()
+
+  const lowlight = createLowlight(all)
+
+  // This is only an example, all supported languages are already loaded above
+  // but you can also register only specific languages to reduce bundle-size
+  lowlight.register('html', html)
+  lowlight.register('css', css)
+  lowlight.register('js', js)
+  lowlight.register('ts', ts)
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -96,6 +111,12 @@ export function Editor() {
       }),
       FontSizeExtension,
       LintHeightExtension.configure(),
+      ColorHighlighter,
+      SmilieReplacer,
+      // CodeBlock,
+      CodeBlockLowlight.configure({
+        lowlight,
+      }),
     ],
   })
 
