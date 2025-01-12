@@ -83,7 +83,7 @@ function LintHeightButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+        <button type="button" className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
           <ListCollapseIcon className="size-4" />
         </button>
       </DropdownMenuTrigger>
@@ -120,11 +120,11 @@ function FontSizeButton() {
   const [inputValue, setInputValue] = useState(fontSize)
   const [isEditing, setIsEditing] = useState(false)
 
-  console.log('test currentFontSize: ', currentFontSize)
+  // console.log('test currentFontSize: ', currentFontSize)
 
   const updateFontSize = (newSize: string) => {
     const size = Number.parseInt(newSize)
-    if (!isNaN(size) && size > 0) {
+    if (!Number.isNaN(size) && size > 0) {
       editor?.chain().focus().setFontSize(`${size}px`).run()
       setIsEditing(false)
       setFontSize(newSize)
@@ -137,7 +137,7 @@ function FontSizeButton() {
   }
 
   const handleInputBlur = () => {
-    console.log('blur', currentFontSize)
+    // console.log('blur', currentFontSize)
     updateFontSize(currentFontSize)
     setIsEditing(false)
   }
@@ -152,14 +152,14 @@ function FontSizeButton() {
 
   const increment = () => {
     const size = Number.parseInt(currentFontSize) + 1
-    if (!isNaN(size) && size > 0) {
+    if (!Number.isNaN(size) && size > 0) {
       updateFontSize(`${size}`)
     }
   }
 
   const decrement = () => {
     const size = Number.parseInt(currentFontSize) - 1
-    if (!isNaN(size) && size > 0) {
+    if (!Number.isNaN(size) && size > 0) {
       updateFontSize(`${size}`)
     }
   }
@@ -167,6 +167,7 @@ function FontSizeButton() {
   return (
     <div className="flex items-center gap-x-2">
       <button
+        type="button"
         onClick={decrement}
         className="h-7 w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5"
       >
@@ -656,8 +657,9 @@ export function Toolbar() {
       {
         label: 'Comment',
         icon: MessageSquareIcon,
-        isActive: false,
+        isActive: editor?.isActive('liveblocksCommentMark'),
         onClick: () => {
+          editor?.chain().focus().addPendingComment().run()
           // editor?.chain().focus().toggleComment().run();
         },
       },

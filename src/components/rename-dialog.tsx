@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useMutation } from 'convex/react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { api } from '../../convex/_generated/api'
 
 interface RenameDialogProps {
@@ -36,6 +37,10 @@ export function RenameDialog({ documentId, initialTitle, children }: RenameDialo
     update({ id: documentId, title: title.trim() || 'Untitled' })
       .then(() => {
         setOpen(false)
+        toast.success('document renamed')
+      })
+      .catch(() => {
+        toast.error('something wrong ')
       })
       .finally(() => {
         setIsUpdating(false)

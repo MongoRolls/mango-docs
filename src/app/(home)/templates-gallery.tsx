@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils'
 import { useMutation } from 'convex/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { api } from '../../../convex/_generated/api'
 
 export default function TemplatesGallery() {
@@ -24,11 +25,17 @@ export default function TemplatesGallery() {
     create({
       title,
       initialContent,
-    }).then((documentId) => {
-      router.push(`/documents/${documentId}`)
-    }).finally(() => {
-      setIsCreate(false)
     })
+      .then((documentId) => {
+        router.push(`/documents/${documentId}`)
+        toast.success('document created')
+      })
+      .catch(() => {
+        toast.error('something wrong ')
+      })
+      .finally(() => {
+        setIsCreate(false)
+      })
   }
 
   return (

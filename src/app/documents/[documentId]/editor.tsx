@@ -5,6 +5,7 @@ import { FontSizeExtension } from '@/extensions/font-size'
 import { LintHeightExtension } from '@/extensions/lint-height'
 import { SmilieReplacer } from '@/extensions/smilie-replacer'
 import { useEditorStore } from '@/store/use-editor-store'
+import { useLiveblocksExtension } from '@liveblocks/react-tiptap'
 // import CodeBlock from '@tiptap/extension-code-block'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { Color } from '@tiptap/extension-color'
@@ -22,7 +23,6 @@ import TaskList from '@tiptap/extension-task-list'
 import TextAlign from '@tiptap/extension-text-align'
 import TextStyle from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
-
 import Underline from '@tiptap/extension-underline'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
@@ -33,8 +33,10 @@ import html from 'highlight.js/lib/languages/xml'
 import { all, createLowlight } from 'lowlight'
 import ImageResize from 'tiptap-extension-resize-image'
 import Rule from './rule'
+import { Threads } from './threads'
 
 export function Editor() {
+  const liveblocks = useLiveblocksExtension()
   const { setEditor } = useEditorStore()
 
   const lowlight = createLowlight(all)
@@ -81,7 +83,10 @@ export function Editor() {
     },
     // 这里item,List顺序不能颠倒,否则影响嵌套
     extensions: [
-      StarterKit,
+      liveblocks,
+      StarterKit.configure({
+        history: false,
+      }),
       TaskItem.configure({
         nested: true,
       }),
@@ -125,6 +130,7 @@ export function Editor() {
       <Rule />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
       </div>
     </div>
   )
