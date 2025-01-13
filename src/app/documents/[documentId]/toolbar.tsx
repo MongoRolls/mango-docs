@@ -185,6 +185,7 @@ function FontSizeButton() {
         />
       ) : (
         <button
+          type="button"
           onClick={() => {
             setIsEditing(true)
             setFontSize(currentFontSize)
@@ -195,6 +196,7 @@ function FontSizeButton() {
         </button>
       )}
       <button
+        type="button"
         onClick={increment}
         className="h-7 w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5"
       >

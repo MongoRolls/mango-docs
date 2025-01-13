@@ -19,5 +19,10 @@
   },
   "eslint.alwaysShowRuleFailuresAsWarnings": true,
   "eslint.run": "onType", // 选择在输入时运行 ESLint
-  "cspell.words": ["Nuqs"]
+  "cspell.words": [
+    "Nuqs"
+  ],
+  "cSpell.words": [
+    "liveblocks"
+  ]
 }

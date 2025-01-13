@@ -6,7 +6,8 @@ export const SmilieReplacer = Extension.create({
   addInputRules() {
     return [
       textInputRule({ find: /hh $/, replace: '🌚' }),
-      textInputRule({ find: /\/help $/, replace: 'adsdasdsadsadsaadkjaskjdasjdjlasjkdjklajsljdkajsjdlaskldjaksdjlsadjlasjdldkjsaldjklsajdlsajldkjk' }),
+      textInputRule({ find: /\/help $/, replace: '🤔' }),
+      textInputRule({ find: /红神 $/, replace: '🔥 🌟 小黑盒,快手' }),
     ]
   },
 })
